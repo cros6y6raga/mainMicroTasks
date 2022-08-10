@@ -1,4 +1,4 @@
-import React, {MouseEvent} from 'react';
+import React, {MouseEvent, useState} from 'react';
 import './App.css';
 import {Header} from './task1/site/Header';
 import {Body} from './task1/site/Body';
@@ -25,14 +25,21 @@ function App() {
         {manufacturer: 'Mercedes', model: 'e63s'},
         {manufacturer: 'Audi', model: 'rs6'}
     ]
-    const Button1Foo = (subscriber:string,age:number,adress:string) => {
-        console.log(subscriber,age,adress)
+    const Button1Foo = (subscriber: string, age: number, adress: string) => {
+        console.log(subscriber, age, adress)
     }
-    const Button2Foo = (subscriber:string) => {
+    const Button2Foo = (subscriber: string) => {
         console.log(subscriber)
     }
     const Button3Foo = () => {
         console.log('I am stupid')
+    }
+    let [a, setA]= useState(1)
+    const onClickHandler = () => {
+        setA(++a)
+    }
+    const onClickHandler2 = () => {
+        setA(0)
     }
     return (
         <>
@@ -40,9 +47,12 @@ function App() {
             <Body titleForBody={'NEW BODY'}/>
             <Footer titleForFooter={'NEW FOOTER'}/>
             <NewComponent students={students} topCars={topCars}/>
-            <Button name={'MyYouTubeChanel-1'} callBack={()=>Button1Foo('I',1, 'Msw')}/>
-            <Button name={'MyYouTubeChanel-2'} callBack={()=>Button2Foo('V')}/>
+            <Button name={'MyYouTubeChanel-1'} callBack={() => Button1Foo('I', 1, 'Msw')}/>
+            <Button name={'MyYouTubeChanel-2'} callBack={() => Button2Foo('V')}/>
             <Button name={'Stupid'} callBack={Button3Foo}/>
+            <h1>{a}</h1>
+            <button onClick={onClickHandler}>number</button>
+            <button onClick={onClickHandler2}>0</button>
         </>
     );
 }
