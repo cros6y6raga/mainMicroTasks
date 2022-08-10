@@ -5,6 +5,9 @@ import {Body} from './task1/site/Body';
 import {Footer} from './task1/site/Footer';
 import {NewComponent} from './task2/NewComponent';
 import {Button} from './task3/components/Button';
+import {Filter} from './task5/Filter';
+
+export type FilterType = 'all' | 'Dollars' | 'RUBLS'
 
 function App() {
     const students = [
@@ -34,12 +37,33 @@ function App() {
     const Button3Foo = () => {
         console.log('I am stupid')
     }
-    let [a, setA]= useState(1)
+    let [a, setA] = useState(1)
     const onClickHandler = () => {
         setA(++a)
     }
     const onClickHandler2 = () => {
         setA(0)
+    }
+    const [money, setMoney] = useState([
+        {banknots: 'Dollars', value: 100, number: ' a1234567890'},
+        {banknots: 'Dollars', value: 50, number: ' z1234567890'},
+        {banknots: 'RUBLS', value: 100, number: ' w1234567890'},
+        {banknots: 'Dollars', value: 100, number: ' e1234567890'},
+        {banknots: 'Dollars', value: 50, number: ' c1234567890'},
+        {banknots: 'RUBLS', value: 100, number: ' r1234567890'},
+        {banknots: 'Dollars', value: 50, number: ' x1234567890'},
+        {banknots: 'RUBLS', value: 50, number: ' v1234567890'},
+    ])
+    let [filter, setFilter] = useState<FilterType>('all')
+    let currentMoney = money
+    if (filter === 'RUBLS') {
+        currentMoney = money.filter(fm => fm.banknots === 'RUBLS')
+    }
+    if (filter === 'Dollars') {
+        currentMoney = money.filter(fm => fm.banknots === 'Dollars')
+    }
+    const onClickFilterHandler = (idClick: FilterType) => {
+        setFilter(idClick)
     }
     return (
         <>
@@ -53,6 +77,23 @@ function App() {
             <h1>{a}</h1>
             <button onClick={onClickHandler}>number</button>
             <button onClick={onClickHandler2}>0</button>
+            <Filter money={currentMoney} onClickFilterHandler={onClickFilterHandler}/>
+            {/*<>*/}
+            {/*    <ul>*/}
+            {/*        {currentMoney.map((el, index) => {*/}
+            {/*            return (*/}
+            {/*                <li key={index}>*/}
+            {/*                    <span>{el.banknots}</span>*/}
+            {/*                    <span>{el.value}</span>*/}
+            {/*                    <span>{el.number}</span>*/}
+            {/*                </li>*/}
+            {/*            )*/}
+            {/*        })}*/}
+            {/*    </ul>*/}
+            {/*    <button onClick={() => onClickFilterHandler('all')}>all</button>*/}
+            {/*    <button onClick={() => onClickFilterHandler('RUBLS')}>RUBLS</button>*/}
+            {/*    <button onClick={() => onClickFilterHandler('Dollars')}>Dollars</button>*/}
+            {/*</>*/}
         </>
     );
 }
