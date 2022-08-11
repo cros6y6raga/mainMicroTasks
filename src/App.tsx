@@ -6,6 +6,7 @@ import {Footer} from './task1/site/Footer';
 import {NewComponent} from './task2/NewComponent';
 import {Button} from './task3/components/Button';
 import {Filter} from './task5/Filter';
+import {FullInput} from './task6/FullInput';
 
 export type FilterType = 'all' | 'Dollars' | 'RUBLS'
 
@@ -65,6 +66,15 @@ function App() {
     const onClickFilterHandler = (idClick: FilterType) => {
         setFilter(idClick)
     }
+    let [message, setMessage] = useState([
+        {message: 'message1'},
+        {message: 'message2'},
+        {message: 'message3'},
+    ])
+    const addMessage = (title: string) => {
+        let newMessage = {message: title};
+        setMessage([newMessage, ...message])
+    }
     return (
         <>
             <Header titleForHeader={'NEW HEADER'}/>
@@ -94,6 +104,16 @@ function App() {
             {/*    <button onClick={() => onClickFilterHandler('RUBLS')}>RUBLS</button>*/}
             {/*    <button onClick={() => onClickFilterHandler('Dollars')}>Dollars</button>*/}
             {/*</>*/}
+            {/*<div>*/}
+            {/*    <input/>*/}
+            {/*    <button>+</button>*/}
+            {/*</div>*/}
+            <FullInput addMessage={addMessage}/>
+            {message.map((el, index) => {
+                return (
+                    <div key={index}>{el.message}</div>
+                )
+            })}
         </>
     );
 }
