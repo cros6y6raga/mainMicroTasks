@@ -7,6 +7,8 @@ import {NewComponent} from './task2/NewComponent';
 import {Button} from './task3/components/Button';
 import {Filter} from './task5/Filter';
 import {FullInput} from './task6/FullInput';
+import {Input} from './task6/Input';
+import {ButtonInput} from './task6/ButtonInput';
 
 export type FilterType = 'all' | 'Dollars' | 'RUBLS'
 
@@ -71,9 +73,15 @@ function App() {
         {message: 'message2'},
         {message: 'message3'},
     ])
+    let [title, setTitle] = useState('')
+    console.log(title)
     const addMessage = (title: string) => {
         let newMessage = {message: title};
         setMessage([newMessage, ...message])
+    }
+    const callBackButtonHandler = () => {
+      addMessage(title)
+        setTitle('')
     }
     return (
         <>
@@ -88,27 +96,8 @@ function App() {
             <button onClick={onClickHandler}>number</button>
             <button onClick={onClickHandler2}>0</button>
             <Filter money={currentMoney} onClickFilterHandler={onClickFilterHandler}/>
-            {/*<>*/}
-            {/*    <ul>*/}
-            {/*        {currentMoney.map((el, index) => {*/}
-            {/*            return (*/}
-            {/*                <li key={index}>*/}
-            {/*                    <span>{el.banknots}</span>*/}
-            {/*                    <span>{el.value}</span>*/}
-            {/*                    <span>{el.number}</span>*/}
-            {/*                </li>*/}
-            {/*            )*/}
-            {/*        })}*/}
-            {/*    </ul>*/}
-            {/*    <button onClick={() => onClickFilterHandler('all')}>all</button>*/}
-            {/*    <button onClick={() => onClickFilterHandler('RUBLS')}>RUBLS</button>*/}
-            {/*    <button onClick={() => onClickFilterHandler('Dollars')}>Dollars</button>*/}
-            {/*</>*/}
-            {/*<div>*/}
-            {/*    <input/>*/}
-            {/*    <button>+</button>*/}
-            {/*</div>*/}
-            <FullInput addMessage={addMessage}/>
+            <Input setTitle={setTitle} title={title}/>
+            <ButtonInput name={'+'} callBack={callBackButtonHandler}/>
             {message.map((el, index) => {
                 return (
                     <div key={index}>{el.message}</div>
